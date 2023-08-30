@@ -3,8 +3,8 @@ require './capitilize_decorator'
 require './trimmer_decorator'
 
 class Person < Nameable
-  attr_accessor :title, :author, :rentals
-  attr_reader :id
+  attr_accessor :name, :age
+  attr_reader :id, :rentals
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
@@ -16,15 +16,11 @@ class Person < Nameable
   end
 
   def can_use_services?
-    of_age? || @parent_permission
+    @age >= 18 || @parent_permission
   end
 
   def correct_name
     @name
-  end
-
-  def add_rental(date, book)
-    Rental.new(date, book, self)
   end
 
   private
