@@ -1,12 +1,18 @@
 require './person'
 
-class Teacher < Person
-  def initialize(age, specialization, name = 'Unknown', parent_permission: true)
-    super(age, name, parent_permission)
-    @specialization = specialization
+class Student < Person
+  attr_reader :classroom
+
+  def initialize(age, name = 'Unknown')
+    super(age, name)
   end
 
-  def can_use_services?
-    true
+  def classroom=(classroom)
+    @classroom = classroom
+    classroom.students.push(self) unless classroom.students.include?(self)
+  end
+
+  def play_hooky
+    '¯\(ツ)/¯'
   end
 end
