@@ -1,13 +1,16 @@
 class Rental
   attr_accessor :date, :person, :book
 
-  def initialize(date, book, person)
+  def initialize(date, person, book)
+    @person = person
+    @book = book
     @date = date
 
-    @book = book
-    book.rentals << self
+    person.rental << self
+    book.rental << self
+  end
 
-    @person = person
-    person.rentals << self
+  def self.all
+    ObjectSpace.each_object(self).to_a
   end
 end
