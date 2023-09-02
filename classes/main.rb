@@ -1,22 +1,56 @@
-require './student'
-require './classroom'
-require './person'
-require './rental'
-require './book'
+require_relative 'app'
+# rubocop:disable Metrics
 
-# Create instances
+def display_ui
+  puts 'Please choose an option by entering a number:'
+  puts '1 - List all books'
+  puts '2 - List all people'
+  puts '3 - Create a person'
+  puts '4 - Create a book'
+  puts '5 - Create a rental'
+  puts '6 - List all rentals for a given person id'
+  puts '7 - Exit'
+  user_choice = gets.chomp.to_i
+  puts user_choice
+  execute(user_choice)
+end
 
-class1 = Classroom.new('maths')
-student1 = Student.new(12)
-class1.add_student(student1)
-student2 = Student.new(15)
-student2.classroom = class1
+def execute(user_choice)
+  case user_choice
 
-book1 = Book.new('book1', 'author1')
-person1 = Person.new(12)
-rental1 = Rental.new('2017-12-22', book1, person1)
+  when 1
+    puts App.list_books
+    display_ui
 
-puts rental1.book.title
-puts rental1.person.age
-puts student2.classroom.label
-puts class1.students.map(&:age)
+  when 2
+    puts App.list_persons
+    display_ui
+
+  when 3
+    App.create_person
+    display_ui
+
+  when 4
+    App.create_book
+    display_ui
+
+  when 5
+    App.create_rental
+    display_ui
+
+  when 6
+    App.list_rentals
+    display_ui
+
+  when 7
+    abort 'Thank you for using the app. Good bye for now !'
+
+  else
+    puts ' Invalid choice . Please enter a valid option'
+    display_ui
+  end
+end
+# rubocop:enable Metrics
+
+puts 'Welcome to School Library App!'
+display_ui
